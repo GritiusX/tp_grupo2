@@ -1,0 +1,16 @@
+codigo,nombre,categoria,precio,stock
+123,Yerba 1kg,Almacén,3500.0,4
+101,Detergente 750ml,Limpieza,1800.0,4
+115,Aceite girasol 1.5L,Almacén,2900.0,20
+103,Leche Entera 1L,Lacteos,1200.0,30
+112,Gaseosa coca 2.25L,Bebidas,2600.0,8
+105,Lavandina 1L,Limpieza,950.0,2
+110,Queso cremoso 1kg,Lacteos,9800.0,5
+102,Fideos spaghetti 500g,Almacén,1100.0,25
+114,Agua mineral 2L,Bebidas,1000.0,0
+107,Papel Higienico x4,Limpieza,2300.0,15
+111,Arroz largo fino 1kg,Almacén,1600.0,18
+104,Yogur bebible 1L,Lacteos,1900.0,3
+113,Vino tinto 750ml,Bebidas,5200.0,9
+106,Cerveza lata 473ml,Bebidas,1300.0,24
+109,Café molido 500g,Almacén,12500.0,6
