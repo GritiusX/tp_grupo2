@@ -17,7 +17,21 @@ def baja_producto(matriz, codigo):
     pass
 
 def modificar_stock(matriz, codigo, cantidad):
-    pass
+    for i in range(1, len(matriz)):  # Empieza en 1 para saltar los titulos.
+        producto = matriz[i].strip().split(",")
+
+        if int(producto[0]) == codigo:
+            nuevo_stock = int(producto[4]) + cantidad
+
+            if nuevo_stock < 0:
+                return False
+
+            producto[4] = str(nuevo_stock)
+            matriz[i] = ",".join(producto) + "\n"
+            return True
+    
+    return False
+            
 
 def busqueda_secuencial(matriz, codigo):
     pass
@@ -55,11 +69,13 @@ def listaMenu():
     print("\n---PANEL DE INVENTARIO---")
     print("1) Ver productos")
     print("2) Agregar productos")
-    print("3) Salir")
+    print("3) Modificar stock")
+    print("4) Salir")
 
 def main():
+    inventario = cargar_csv(ARCHIVO_CSV)
     seleccionMenu= ""
-    while seleccionMenu != "3":
+    while seleccionMenu != "4":
         listaMenu()
         seleccionMenu = entrada()
 
@@ -70,6 +86,16 @@ def main():
             print("Elegiste agregar un producto")
         
         elif seleccionMenu == "3":
+            print("Elegiste modificar el stock:")
+            codigo = int(input("Código del producto: "))
+            cantidad = int(input("Cantidad a sumar o restar: "))
+
+            if modificar_stock(inventario, codigo, cantidad):
+                print("Stock modificado")
+            else:
+                print("El codigo no existe o el stock quedaria negativo")
+
+        elif seleccionMenu == "4":
             print("Cerrando el programa...")
 
         else: 
@@ -78,5 +104,3 @@ def main():
 main()
 
 
-
-cargar_csv(ARCHIVO_CSV)
