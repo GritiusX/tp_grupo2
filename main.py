@@ -77,10 +77,35 @@ def busqueda_binaria(matriz, codigo):
     pass
 
 def ordenar_seleccion(matriz, columna):
-    pass
+    # En cada pasada ubicamos el mayor restante en la posicion i.
+    for i in range(len(matriz) - 1):
+        pos_mayor = i
+
+        for j in range(i + 1, len(matriz)):
+            if matriz[j][columna] > matriz[pos_mayor][columna]:
+                pos_mayor = j
+
+        # Intercambiamos filas completas para conservar los datos del producto.
+        auxiliar = matriz[i]
+        matriz[i] = matriz[pos_mayor]
+        matriz[pos_mayor] = auxiliar
+
+    return matriz
 
 def ordenar_insercion(matriz, columna):
-    pass
+    for i in range(1, len(matriz)):
+        producto_actual = matriz[i]
+        j = i - 1
+
+        # Desplazamos hacia la derecha los productos con un valor menor.
+        while j >= 0 and matriz[j][columna] < producto_actual[columna]:
+            matriz[j + 1] = matriz[j]
+            j -= 1
+
+        # Colocamos el producto en el lugar que quedó libre.
+        matriz[j + 1] = producto_actual
+
+    return matriz
 
 def stock_bajo(matriz, umbral):
     pass
@@ -108,17 +133,21 @@ def listaMenu():
     print("2) Agregar productos")
     print("3) Modificar stock")
     print("4) Guardar CSV")
-    print("5) Salir")
+    print("5) Ordenar por selección (mayor a menor)")
+    print("6) Ordenar por inserción (mayor a menor)")
+    print("7) Salir")
 
 def main():
     inventario = cargar_csv(ARCHIVO_CSV)
     seleccionMenu= ""
-    while seleccionMenu != "5":
+    while seleccionMenu != "7":
         listaMenu()
         seleccionMenu = entrada()
 
         if seleccionMenu == "1":
             print("Elegiste ver productos")
+            for producto in inventario:
+                print(producto)
 
         elif seleccionMenu == "2":
             print("Elegiste agregar un producto")
@@ -141,6 +170,42 @@ def main():
                 print("No se pudo guardar el CSV")
 
         elif seleccionMenu == "5":
+            print("Ordenar de mayor a menor por:")
+            print("0) Código")
+            print("1) Nombre")
+            print("2) Categoría")
+            print("3) Precio")
+            print("4) Stock")
+
+            columna = input("Elegí una columna: ")
+
+            while not columna.isdigit() or int(columna) > STOCK_COLUMNA:
+                columna = input("Ingresá un número entre 0 y 4: ")
+
+            ordenar_seleccion(inventario, int(columna))
+
+            for producto in inventario:
+                print(producto)
+
+        elif seleccionMenu == "6":
+            print("Ordenar de mayor a menor por:")
+            print("0) Código")
+            print("1) Nombre")
+            print("2) Categoría")
+            print("3) Precio")
+            print("4) Stock")
+
+            columna = input("Elegí una columna: ")
+
+            while not columna.isdigit() or int(columna) > STOCK_COLUMNA:
+                columna = input("Ingresá un número entre 0 y 4: ")
+
+            ordenar_insercion(inventario, int(columna))
+
+            for producto in inventario:
+                print(producto)
+
+        elif seleccionMenu == "7":
             print("Cerrando el programa...")
 
         else: 
