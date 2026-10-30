@@ -27,7 +27,7 @@ def cargar_csv(nombre_archivo):
     return matriz
 
 def guardar_csv(matriz, nombre_archivo):
-    # Escribe la matriz de productos en un archivo CSV, con encabezado.
+    # Guarda en una variable la matriz de productos del archivo CSV, con encabezado.
     archivo = open(nombre_archivo, 'w', encoding='utf-8')
 
     # Primera línea: encabezado
