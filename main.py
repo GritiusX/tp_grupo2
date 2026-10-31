@@ -68,7 +68,10 @@ def busqueda_secuencial(matriz, codigo):
     fila_matriz = 0
     while fila_matriz < len(matriz) and codigo != matriz[fila_matriz][CODIGO_COLUMNA] :
         fila_matriz += 1
-    pass
+    if fila_matriz < len(matriz):
+        return fila_matriz, (fila_matriz +1) ### fila_matriz +1 es el numero de comparaciones que se dio en la busqueda
+    else:
+        return -1 , fila_matriz
 
 def busqueda_binaria(matriz, codigo):
     pass
