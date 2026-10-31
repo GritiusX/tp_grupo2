@@ -129,10 +129,17 @@ def ordenar_insercion(matriz, columna):
     return matriz
 
 def stock_bajo(matriz, umbral):
-    pass
+    resultados = []
+    for i in range(len(matriz)):
+        if matriz[i][STOCK_COLUMNA] < umbral:
+            resultados.append(matriz[i])
+    return resultados
 
 def valor_total(matriz):
-    pass
+    total = 0
+    for i in range(len(matriz)):
+        total += matriz[i][PRECIO_COLUMNA] * matriz[i][STOCK_COLUMNA]
+    return total
 
 def producto_mas_caro(matriz): 
     pass
