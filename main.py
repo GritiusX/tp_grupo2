@@ -7,6 +7,12 @@ STOCK_COLUMNA = 4 #index de la columna del stock en el csv
 
 def cargar_csv(nombre_archivo):
     matriz = []
+
+    ### open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+    archivo = open(nombre_archivo, 'r', encoding='utf-8')
+    lineas_archivo = archivo.readlines()
+    archivo.close()
+
     ### range(start, stop, step)
     for fila in range(1,len(lineas_archivo)): ### fila es el indice de la fila en la matriz
         ### strip() elimina los espacios en blanco al principio y al final de la cadena
@@ -19,7 +25,7 @@ def cargar_csv(nombre_archivo):
 
     #print(matriz)
     return matriz
-  
+
 def guardar_csv(matriz, nombre_archivo):
     # Guarda en una variable la matriz de productos del archivo CSV, con encabezado.
     archivo = open(nombre_archivo, 'w', encoding='utf-8')
@@ -29,11 +35,6 @@ def guardar_csv(matriz, nombre_archivo):
 
     # Una línea por producto (cada fila de la matriz)
     for fila in matriz:
-    ### open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
-    archivo = open(nombre_archivo, 'r', encoding='utf-8')
-    lineas_archivo = archivo.readlines()
-    archivo.close()
-
         linea = (str(fila[CODIGO_COLUMNA]) + ',' + fila[NOMBRE_COLUMNA] + ',' + fila[CATEGORIA_COLUMNA] + ',' +
                  str(fila[PRECIO_COLUMNA]) + ',' + str(fila[STOCK_COLUMNA]) + '\n')
         archivo.write(linea)
