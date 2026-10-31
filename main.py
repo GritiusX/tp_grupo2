@@ -86,14 +86,13 @@ def modificar_stock(matriz, codigo, cantidad):
             
 
 def busqueda_secuencial(matriz, codigo):
-    # Recorre la matriz fila por fila hasta encontrar el código.
-    # Devuelve: (índice de la fila o -1 si no existe, cantidad de comparaciones)
-    comparaciones = 0
-    for i in range(len(matriz)):
-        comparaciones += 1
-        if matriz[i][CODIGO_COLUMNA] == codigo:
-            return i, comparaciones
-    return -1, comparaciones
+    fila_matriz = 0
+    while fila_matriz < len(matriz) and codigo != matriz[fila_matriz][CODIGO_COLUMNA] :
+        fila_matriz += 1
+    if fila_matriz < len(matriz):
+        return fila_matriz, (fila_matriz +1) ### fila_matriz +1 es el numero de comparaciones que se dio en la busqueda
+    else:
+        return -1 , fila_matriz
 
 def busqueda_binaria(matriz, codigo):
     pass
