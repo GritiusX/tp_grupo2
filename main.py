@@ -43,10 +43,31 @@ def guardar_csv(matriz, nombre_archivo):
     return True
 
 def alta_producto(matriz, codigo, nombre, categoria, precio, stock):
-    pass
+    # Agrega un producto. Devuelve True si lo agregó,
+    # False si el código ya existe o los datos no son válidos.
+
+    # 1. Validar los datos... CAPAZ ACA HACER QUE SEA "not str" o algo asi xd
+    if codigo <= 0 or nombre == '' or categoria == '' or precio < 0 or stock < 0:
+        return False
+
+    # 2. Verificar que el código no exista
+    indice, comparaciones = busqueda_secuencial(matriz, codigo)
+    if indice != -1:
+        return False
+
+    # 3. Agregar la fila con las columnas en el orden correcto
+    matriz.append([codigo, nombre, categoria, precio, stock])
+    return True
+
 
 def baja_producto(matriz, codigo):
-    pass
+    # Elimina el producto. Devuelve True si lo eliminó, False si no existe.
+    indice, comparaciones = busqueda_secuencial(matriz, codigo)
+    if indice == -1:
+        return False
+
+    matriz.pop(indice)  # saca la fila que está en esa posición
+    return True
 
 def modificar_stock(matriz, codigo, cantidad):
     for i in range(len(matriz)):  # cargar_csv ya excluye el encabezado.
@@ -65,10 +86,14 @@ def modificar_stock(matriz, codigo, cantidad):
             
 
 def busqueda_secuencial(matriz, codigo):
-    fila_matriz = 0
-    while fila_matriz < len(matriz) and codigo != matriz[fila_matriz][CODIGO_COLUMNA] :
-        fila_matriz += 1
-    pass
+    # Recorre la matriz fila por fila hasta encontrar el código.
+    # Devuelve: (índice de la fila o -1 si no existe, cantidad de comparaciones)
+    comparaciones = 0
+    for i in range(len(matriz)):
+        comparaciones += 1
+        if matriz[i][CODIGO_COLUMNA] == codigo:
+            return i, comparaciones
+    return -1, comparaciones
 
 def busqueda_binaria(matriz, codigo):
     pass
