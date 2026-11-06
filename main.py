@@ -119,6 +119,7 @@ def ordenar_seleccion(matriz, columna):
             if matriz[j][columna] > matriz[pos_mayor][columna]:
                 pos_mayor = j
 
+        # Intercambiamos filas completas para conservar los datos del producto.
         auxiliar = matriz[i]
         matriz[i] = matriz[pos_mayor]
         matriz[pos_mayor] = auxiliar
@@ -135,6 +136,7 @@ def ordenar_insercion(matriz, columna):
             matriz[j + 1] = matriz[j]
             j -= 1
 
+        # Colocamos el producto en el lugar que quedó libre.
         matriz[j + 1] = producto_actual
 
     return matriz
