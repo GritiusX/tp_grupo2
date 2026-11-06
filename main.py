@@ -95,21 +95,33 @@ def busqueda_secuencial(matriz, codigo):
         return -1 , fila_matriz
 
 def busqueda_binaria(matriz, codigo):
-    pass
+    izquierda = 0
+    derecha = len(matriz) - 1
+    comparaciones = 0
+    while izquierda <= derecha:
+        medio = (izquierda + derecha) // 2
+        comparaciones += 1
+        if matriz[medio][CODIGO_COLUMNA] == codigo:
+            return medio, comparaciones
+        elif matriz[medio][CODIGO_COLUMNA] < codigo:
+            izquierda = medio + 1
+        else:
+            derecha = medio - 1
+    return -1, comparaciones
 
 def ordenar_seleccion(matriz, columna):
-    # En cada pasada ubicamos el mayor restante en la posicion i.
+    # En cada pasada ubicamos el menor restante en la posicion i.
     for i in range(len(matriz) - 1):
-        pos_mayor = i
+        pos_menor = i
 
         for j in range(i + 1, len(matriz)):
-            if matriz[j][columna] > matriz[pos_mayor][columna]:
-                pos_mayor = j
+            if matriz[j][columna] < matriz[pos_menor][columna]:
+                pos_menor = j
 
         # Intercambiamos filas completas para conservar los datos del producto.
         auxiliar = matriz[i]
-        matriz[i] = matriz[pos_mayor]
-        matriz[pos_mayor] = auxiliar
+        matriz[i] = matriz[pos_menor]
+        matriz[pos_menor] = auxiliar
 
     return matriz
 
@@ -118,8 +130,8 @@ def ordenar_insercion(matriz, columna):
         producto_actual = matriz[i]
         j = i - 1
 
-        # Desplazamos hacia la derecha los productos con un valor menor.
-        while j >= 0 and matriz[j][columna] < producto_actual[columna]:
+        # Desplazamos hacia la derecha los productos con un valor mayor.
+        while j >= 0 and matriz[j][columna] > producto_actual[columna]:
             matriz[j + 1] = matriz[j]
             j -= 1
 
@@ -141,27 +153,22 @@ def valor_total(matriz):
         total += matriz[i][PRECIO_COLUMNA] * matriz[i][STOCK_COLUMNA]
     return total
 
-def producto_mas_caro(matriz): 
-
+def producto_mas_caro(matriz):
+    if len(matriz) == 0:
+        return None
     mas_caro = matriz[0]
-
-    # Iterar por cada fila de la matriz y reemplazar el producto guardado mas caro
-    for i in range(0, len(matriz)):
-        if matriz[i][PRECIO_COLUMNA] > mas_caro:
+    for i in range(1, len(matriz)):
+        if matriz[i][PRECIO_COLUMNA] > mas_caro[PRECIO_COLUMNA]:
             mas_caro = matriz[i]
-
     return mas_caro
 
-
-def producto_mas_barato(matriz): 
-
+def producto_mas_barato(matriz):
+    if len(matriz) == 0:
+        return None
     mas_barato = matriz[0]
-
-    # Iterar por cada fila de la matriz y reemplazar el producto guardado mas barato
     for i in range(1, len(matriz)):
-        if matriz[i][PRECIO_COLUMNA]:
+        if matriz[i][PRECIO_COLUMNA] < mas_barato[PRECIO_COLUMNA]:
             mas_barato = matriz[i]
-
     return mas_barato
 
 def entrada():
@@ -181,6 +188,21 @@ def listaMenu():
     print("5) Ordenar por selección (mayor a menor)")
     print("6) Ordenar por inserción (mayor a menor)")
     print("7) Salir")
+
+
+def pedir_columna():
+    # Pide al usuario por qué columna ordenar y devuelve su índice.
+    print("Ordenar de menor a mayor por:")
+    print("0) Código")
+    print("1) Nombre")
+    print("3) Precio")
+    print("4) Stock")
+
+    columna = input("Elegí una columna: ")
+    while columna != "0" and columna != "1" and columna != "3" and columna != "4":
+        columna = input("Ingresá 0, 1, 3 o 4: ")
+
+    return int(columna)
 
 def main():
     inventario = cargar_csv(ARCHIVO_CSV)
@@ -231,31 +253,21 @@ def main():
 
             for producto in inventario:
                 print(producto)
-
-        elif seleccionMenu == "6":
-            print("Ordenar de mayor a menor por:")
-            print("0) Código")
-            print("1) Nombre")
-            print("2) Categoría")
-            print("3) Precio")
-            print("4) Stock")
-
-            columna = input("Elegí una columna: ")
-
-            while not columna.isdigit() or int(columna) > STOCK_COLUMNA:
-                columna = input("Ingresá un número entre 0 y 4: ")
-
-            ordenar_insercion(inventario, int(columna))
+        elif seleccionMenu == "5":
+            columna = pedir_columna()
+            ordenar_seleccion(inventario, columna)
 
             for producto in inventario:
                 print(producto)
 
-        elif seleccionMenu == "7":
-            print("Cerrando el programa...")
+        elif seleccionMenu == "6":
+            columna = pedir_columna()
+            ordenar_insercion(inventario, columna)
+
+            for producto in inventario:
+                print(producto)
 
         else: 
             print("Seleccioná una opción valida, intentá nuevamente")
 
 main()
-
-
