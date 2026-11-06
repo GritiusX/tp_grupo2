@@ -142,10 +142,27 @@ def valor_total(matriz):
     return total
 
 def producto_mas_caro(matriz): 
-    pass
+
+    mas_caro = matriz[0]
+
+    # Iterar por cada fila de la matriz y reemplazar el producto guardado mas caro
+    for i in range(0, len(matriz)):
+        if matriz[i][PRECIO_COLUMNA] > mas_caro:
+            mas_caro = matriz[i]
+
+    return mas_caro
+
 
 def producto_mas_barato(matriz): 
-    pass
+
+    mas_barato = matriz[0]
+
+    # Iterar por cada fila de la matriz y reemplazar el producto guardado mas barato
+    for i in range(1, len(matriz)):
+        if matriz[i][PRECIO_COLUMNA]:
+            mas_barato = matriz[i]
+
+    return mas_barato
 
 def entrada():
     seleccionMenu = input()
