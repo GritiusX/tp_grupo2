@@ -111,12 +111,6 @@ def busqueda_binaria(matriz, codigo):
     return -1, comparaciones
 
 def ordenar_seleccion(matriz, columna):
-<<<<<<< Updated upstream
-    pass
-
-def ordenar_insercion(matriz, columna):
-    pass
-=======
     # En cada pasada ubicamos el mayor restante en la posicion i (descendente).
     for i in range(len(matriz) - 1):
         pos_mayor = i
@@ -144,7 +138,6 @@ def ordenar_insercion(matriz, columna):
         matriz[j + 1] = producto_actual
 
     return matriz
->>>>>>> Stashed changes
 
 def ordenar_burbuja(matriz, columna):
     # Compara pares adyacentes y los intercambia si están en orden incorrecto (descendente).
@@ -170,13 +163,6 @@ def valor_total(matriz):
         total += matriz[i][PRECIO_COLUMNA] * matriz[i][STOCK_COLUMNA]
     return total
 
-<<<<<<< Updated upstream
-def producto_mas_caro(matriz): 
-    pass
-
-def producto_mas_barato(matriz): 
-    pass
-=======
 def producto_mas_caro(matriz):
     mas_caro = matriz[0]
 
@@ -195,7 +181,6 @@ def producto_mas_barato(matriz):
             mas_barato = matriz[i]
 
     return mas_barato
->>>>>>> Stashed changes
 
 def entrada():
     seleccionMenu = input()
@@ -207,18 +192,6 @@ def entrada():
 
 def listaMenu():
     print("\n---PANEL DE INVENTARIO---")
-<<<<<<< Updated upstream
-    print("1) Ver productos")
-    print("2) Agregar productos")
-    print("3) Modificar stock")
-    print("4) Guardar CSV")
-    print("5) Salir")
-
-def main():
-    inventario = cargar_csv(ARCHIVO_CSV)
-    seleccionMenu= ""
-    while seleccionMenu != "5":
-=======
     print("1)  Ver productos")
     print("2)  Agregar producto")
     print("3)  Baja de producto")
@@ -247,18 +220,13 @@ def main():
     inventario = cargar_csv(ARCHIVO_CSV)
     seleccionMenu = ""
     while seleccionMenu != "12":
->>>>>>> Stashed changes
         listaMenu()
         seleccionMenu = entrada()
 
         if seleccionMenu == "1":
-<<<<<<< Updated upstream
-            print("Elegiste ver productos")
-=======
             print("\n--- Productos ---")
             for producto in inventario:
                 print(producto)
->>>>>>> Stashed changes
 
         elif seleccionMenu == "2":
             print("\nAgregar producto:")
@@ -372,11 +340,7 @@ def main():
             else:
                 print("No se pudo guardar el CSV.")
 
-<<<<<<< Updated upstream
-        elif seleccionMenu == "5":
-=======
         elif seleccionMenu == "12":
->>>>>>> Stashed changes
             print("Cerrando el programa...")
 
         else:
